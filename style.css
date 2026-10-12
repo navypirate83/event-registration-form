@@ -1,0 +1,289 @@
+/* Styles for the Event Registration page (linked from index.html) */
+
+/* Color "variables" (custom properties) so each color is defined once and reused everywhere */
+:root {
+  --bg: #0F0D0E;
+  --text: #F9F4DA;
+  --amber: #FCBA28;
+  --green: #0BA95B;
+  --pink: #F38BA3;
+  --panel: #1A1718;      /* slightly lighter than the background, for the form card */
+  --border: #3A3436;     /* soft gray border used when a field is neither valid nor invalid */
+  --muted: #B8B29A;      /* dimmer version of the text color for hints and labels */
+}
+
+/* Make width/height include padding and borders, which makes sizing much easier to predict */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Page-wide styles: dark background, light text, and a centered column with side padding */
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.5;
+  padding: 48px 16px;
+}
+
+/* The main column: limits how wide the content gets on big screens */
+.container {
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+/* Page heading, with an amber accent */
+h1 {
+  margin: 0 0 4px;
+  font-size: 2rem;
+  color: var(--amber);
+}
+
+/* Short line of text under the heading */
+.subtitle {
+  margin: 0 0 28px;
+  color: var(--muted);
+}
+
+/* The form "card": a slightly raised panel with rounded corners */
+form {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 28px;
+}
+
+/* Each label + input + error message is grouped in a .field, spaced apart from the next one */
+.field {
+  margin-bottom: 20px;
+}
+
+/* Field labels sit on their own line above the input */
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+/* Small gray "(optional)" note next to a label */
+.optional {
+  font-weight: 400;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* Shared look for all text boxes, the date picker, the number box and the textarea */
+input,
+textarea {
+  width: 100%;
+  padding: 12px 14px;
+  font: inherit;
+  color: var(--text);
+  background: var(--bg);
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+/* Let the textarea only be resized up/down, never sideways (which would break the layout) */
+textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+/* Make the browser's built-in calendar icon light so it shows up on the dark background */
+input[type="date"] {
+  color-scheme: dark;
+}
+
+/* When a field is clicked into (focused), give it an amber outline glow */
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--amber);
+  box-shadow: 0 0 0 3px rgba(252, 186, 40, 0.25);
+}
+
+/* Valid state: green border (JavaScript adds the "valid" class) */
+input.valid,
+textarea.valid {
+  border-color: var(--green);
+}
+
+/* Invalid state: pink border (JavaScript adds the "invalid" class) */
+input.invalid,
+textarea.invalid {
+  border-color: var(--pink);
+}
+
+/* Keep the green/pink glow while focused, so the color doesn't disappear while typing */
+input.valid:focus,
+textarea.valid:focus {
+  box-shadow: 0 0 0 3px rgba(11, 169, 91, 0.25);
+}
+input.invalid:focus,
+textarea.invalid:focus {
+  box-shadow: 0 0 0 3px rgba(243, 139, 163, 0.25);
+}
+
+/* The error message under each field. It reserves its space even when empty
+   so the page doesn't jump around as errors appear and disappear. */
+.error {
+  min-height: 1.3em;
+  margin: 6px 0 0;
+  font-size: 0.875rem;
+  color: var(--pink);
+}
+
+/* Row holding the Register and Reset buttons */
+.actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+/* Shared button styles */
+button {
+  flex: 1;
+  padding: 14px 20px;
+  font: inherit;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.1s, background 0.2s, filter 0.2s;
+}
+
+/* Main "Register" button: solid amber with dark text */
+.btn-primary {
+  background: var(--amber);
+  color: var(--bg);
+  border: 2px solid var(--amber);
+}
+
+/* Slightly brighten the Register button on hover */
+.btn-primary:hover {
+  filter: brightness(1.08);
+}
+
+/* "Reset" button: an outline-only style so it looks less important than Register */
+.btn-secondary {
+  background: transparent;
+  color: var(--text);
+  border: 2px solid var(--border);
+}
+
+/* Tint the Reset button amber on hover */
+.btn-secondary:hover {
+  border-color: var(--amber);
+  color: var(--amber);
+}
+
+/* Tiny "press down" effect when any button is clicked */
+button:active {
+  transform: scale(0.98);
+}
+
+/* Visible outline for keyboard users tabbing to buttons */
+button:focus-visible {
+  outline: 3px solid var(--amber);
+  outline-offset: 3px;
+}
+
+/* The confirmation card shown after a successful registration */
+.confirmation {
+  margin-top: 28px;
+  padding: 24px 28px;
+  background: var(--panel);
+  border: 2px solid var(--green);
+  border-left-width: 8px;
+  border-radius: 14px;
+}
+
+/* "hidden" class: completely hides an element (used for the card before submit and after reset) */
+.hidden {
+  display: none;
+}
+
+/* Adding this class plays the slide-in animation defined just below */
+.confirmation.slide-in {
+  animation: slideIn 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* The slide-in animation: start lower down and see-through, end in place and fully visible */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Respect people who've asked their computer to reduce motion: just fade instead of sliding */
+@media (prefers-reduced-motion: reduce) {
+  .confirmation.slide-in {
+    animation: fadeIn 0.3s ease;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+}
+
+/* Confirmation card heading, in green to signal success */
+.confirmation h2 {
+  margin: 0 0 16px;
+  color: var(--green);
+  font-size: 1.4rem;
+}
+
+/* The list of submitted details: a two-column grid (label on the left, value on the right) */
+.details {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 10px 20px;
+  margin: 0;
+}
+
+/* Detail labels ("Name", "Email", ...) in amber */
+.details dt {
+  color: var(--amber);
+  font-weight: 600;
+}
+
+/* Detail values. "break-word" stops long emails from overflowing the card;
+   "pre-wrap" keeps line breaks the user typed in the dietary box. */
+.details dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+/* Small screens (phones): tighter padding, stacked buttons, and the details list in one column */
+@media (max-width: 480px) {
+  body {
+    padding: 28px 16px;
+  }
+  h1 {
+    font-size: 1.6rem;
+  }
+  form,
+  .confirmation {
+    padding: 20px;
+  }
+  .actions {
+    flex-direction: column;
+  }
+  .details {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+  /* Add space above each label (except the first) so each label/value pair reads as a group */
+  .details dt:not(:first-of-type) {
+    margin-top: 10px;
+  }
+}

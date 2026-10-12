@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Basic page setup: character set, mobile-friendly scaling, and the tab title -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Registration</title>
+
+  <!-- Load the page's styles from the separate style.css file -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Main page content -->
+  <main class="container">
+    <h1>Event Registration</h1>
+    <p class="subtitle">Save your spot — it only takes a minute.</p>
+
+    <!-- The form. "novalidate" turns off the browser's own pop-up error bubbles,
+         so our JavaScript can show its own messages instead. -->
+    <form id="registration-form" novalidate>
+
+      <!-- Full name field. aria-describedby links the input to its error message for screen readers. -->
+      <div class="field">
+        <label for="fullName">Full name</label>
+        <input type="text" id="fullName" name="fullName" autocomplete="name" aria-describedby="fullName-error">
+        <p class="error" id="fullName-error" aria-live="polite"></p>
+      </div>
+
+      <!-- Email field -->
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" autocomplete="email" aria-describedby="email-error">
+        <p class="error" id="email-error" aria-live="polite"></p>
+      </div>
+
+      <!-- Event date field: type="date" shows the browser's date picker -->
+      <div class="field">
+        <label for="eventDate">Event date</label>
+        <input type="date" id="eventDate" name="eventDate" aria-describedby="eventDate-error">
+        <p class="error" id="eventDate-error" aria-live="polite"></p>
+      </div>
+
+      <!-- Number of guests field: type="number" with min/max gives up/down arrows limited to 1–10 -->
+      <div class="field">
+        <label for="guests">Number of guests</label>
+        <input type="number" id="guests" name="guests" min="1" max="10" step="1" inputmode="numeric" aria-describedby="guests-error">
+        <p class="error" id="guests-error" aria-live="polite"></p>
+      </div>
+
+      <!-- Dietary restrictions: optional, so it has no error message -->
+      <div class="field">
+        <label for="dietary">Dietary restrictions <span class="optional">(optional)</span></label>
+        <textarea id="dietary" name="dietary" placeholder="e.g. vegetarian, nut allergy"></textarea>
+      </div>
+
+      <!-- The buttons. type="reset" makes the browser clear all fields when clicked. -->
+      <div class="actions">
+        <button type="submit" class="btn-primary">Register</button>
+        <button type="reset" class="btn-secondary">Reset</button>
+      </div>
+    </form>
+
+    <!-- Confirmation card: hidden at first, filled in and shown by JavaScript after a valid submit.
+         role="status" makes screen readers announce it when it appears. -->
+    <section id="confirmation" class="confirmation hidden" role="status">
+      <h2>You're registered! 🎉</h2>
+      <dl class="details" id="confirmation-details"></dl>
+    </section>
+  </main>
+
+  <!-- Load the page's JavaScript from script.js. It sits at the end of <body>
+       so the form already exists on the page when the script runs. -->
+  <script src="script.js"></script>
+</body>
+</html>
