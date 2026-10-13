@@ -14,6 +14,11 @@
 
     <form id="registration-form" novalidate>
 
+      <div class="edit-banner hidden" id="edit-banner" role="status">
+        <span>Editing registration for <strong id="edit-name"></strong></span>
+        <button type="button" class="btn-link" id="cancel-edit">Cancel</button>
+      </div>
+
       <div class="field">
         <label for="fullName">Full name</label>
         <input type="text" id="fullName" name="fullName" autocomplete="name" aria-describedby="fullName-error">
@@ -44,16 +49,44 @@
       </div>
 
       <div class="actions">
-        <button type="submit" class="btn-primary">Register</button>
+        <button type="submit" class="btn-primary" id="submit-button">Register</button>
         <button type="reset" class="btn-secondary">Reset</button>
       </div>
     </form>
 
     <section id="confirmation" class="confirmation hidden" role="status">
-      <h2>You're registered! 🎉</h2>
+      <h2 id="confirmation-heading">You're registered! 🎉</h2>
       <dl class="details" id="confirmation-details"></dl>
     </section>
+
+    <section class="registrations" aria-labelledby="registrations-heading">
+      <h2 id="registrations-heading">
+        Registrations <span class="count" id="registration-count"></span>
+      </h2>
+
+      <div class="toolbar">
+        <label for="search" class="visually-hidden">Search registrations</label>
+        <input type="search" id="search" class="search-input" placeholder="Search by name, email, or date…" autocomplete="off">
+        <div class="toolbar-buttons">
+          <button type="button" class="btn-small btn-outline-amber" id="export-button">Export JSON</button>
+          <button type="button" class="btn-small btn-outline-pink" id="clear-all-button">Clear all</button>
+        </div>
+      </div>
+
+      <ul class="registration-list" id="registration-list"></ul>
+      <p class="empty-message hidden" id="empty-message">No registrations yet</p>
+      <p class="empty-message hidden" id="no-matches"></p>
+    </section>
   </main>
+
+  <dialog class="modal" id="confirm-dialog" aria-labelledby="confirm-dialog-title" aria-describedby="confirm-dialog-text">
+    <h2 id="confirm-dialog-title"></h2>
+    <p id="confirm-dialog-text"></p>
+    <div class="modal-actions">
+      <button type="button" class="btn-secondary" id="confirm-cancel" autofocus>Cancel</button>
+      <button type="button" class="btn-danger" id="confirm-ok"></button>
+    </div>
+  </dialog>
 
   <script src="script.js"></script>
 </body>

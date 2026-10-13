@@ -246,3 +246,270 @@ button:focus-visible {
     margin-top: 10px;
   }
 }
+
+.registrations {
+  margin-top: 40px;
+}
+
+.registrations h2 {
+  margin: 0 0 16px;
+  font-size: 1.4rem;
+  color: var(--amber);
+}
+
+.registrations .count {
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.registration-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.registration-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--amber);
+  border-radius: 10px;
+}
+
+.registration-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.registration-name {
+  margin: 0;
+  font-weight: 700;
+}
+
+.registration-email {
+  margin: 2px 0 0;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+.registration-meta {
+  margin: 6px 0 0;
+  font-size: 0.9rem;
+}
+
+.btn-delete {
+  flex: none;
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  background: transparent;
+  color: var(--pink);
+  border: 2px solid var(--pink);
+}
+
+.btn-delete:hover {
+  background: var(--pink);
+  color: var(--bg);
+}
+
+.empty-message {
+  margin: 0;
+  padding: 20px;
+  text-align: center;
+  font-style: italic;
+  color: var(--muted);
+  border: 1px dashed var(--border);
+  border-radius: 10px;
+}
+
+@media (max-width: 480px) {
+  .registration-item {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+button:disabled:hover {
+  filter: none;
+  background: transparent;
+}
+button:disabled:active {
+  transform: none;
+}
+
+.edit-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding: 10px 14px;
+  background: rgba(252, 186, 40, 0.12);
+  border: 1px solid var(--amber);
+  border-radius: 8px;
+}
+
+.edit-banner.hidden {
+  display: none;
+}
+
+.btn-link {
+  flex: none;
+  padding: 4px 6px;
+  background: none;
+  border: none;
+  color: var(--amber);
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.toolbar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 14px;
+}
+
+.toolbar-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-small {
+  flex: none;
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  background: transparent;
+}
+
+.btn-outline-amber {
+  color: var(--amber);
+  border: 2px solid var(--amber);
+}
+.btn-outline-amber:hover {
+  background: var(--amber);
+  color: var(--bg);
+}
+
+.btn-outline-pink {
+  color: var(--pink);
+  border: 2px solid var(--pink);
+}
+.btn-outline-pink:hover {
+  background: var(--pink);
+  color: var(--bg);
+}
+
+.btn-outline-amber:disabled:hover { color: var(--amber); }
+.btn-outline-pink:disabled:hover { color: var(--pink); }
+
+.registration-actions {
+  display: flex;
+  gap: 8px;
+  flex: none;
+}
+
+.registration-item.editing {
+  border-color: var(--amber);
+  background: rgba(252, 186, 40, 0.08);
+}
+
+.registration-time {
+  margin: 4px 0 0;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.modal {
+  width: min(420px, calc(100% - 32px));
+  padding: 24px;
+  background: var(--panel);
+  color: var(--text);
+  border: 2px solid var(--pink);
+  border-radius: 14px;
+}
+
+.modal[open] {
+  animation: modalIn 0.2s ease-out;
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.modal::backdrop {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.modal h2 {
+  margin: 0 0 8px;
+  font-size: 1.3rem;
+  color: var(--pink);
+}
+
+.modal p {
+  margin: 0 0 20px;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-danger {
+  background: var(--pink);
+  color: var(--bg);
+  border: 2px solid var(--pink);
+}
+.btn-danger:hover {
+  filter: brightness(1.08);
+}
+
+.btn-danger:focus-visible,
+.btn-outline-pink:focus-visible,
+.btn-delete:focus-visible {
+  outline-color: var(--pink);
+}
+
+@media (max-width: 480px) {
+  .toolbar {
+    flex-direction: column;
+  }
+  .toolbar-buttons .btn-small,
+  .registration-actions .btn-small,
+  .registration-actions .btn-delete {
+    flex: 1;
+  }
+  .modal-actions {
+    flex-direction: column-reverse;
+  }
+}

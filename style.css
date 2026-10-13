@@ -287,3 +287,319 @@ button:focus-visible {
     margin-top: 10px;
   }
 }
+
+/* The "Registrations" section below the form, with space above it */
+.registrations {
+  margin-top: 40px;
+}
+
+/* Section heading, in amber like the page title */
+.registrations h2 {
+  margin: 0 0 16px;
+  font-size: 1.4rem;
+  color: var(--amber);
+}
+
+/* The small number next to the heading, e.g. "(3)", in the dimmer text color */
+.registrations .count {
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+/* The list itself: remove the default bullets and indent, and stack items with a gap */
+.registration-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* One saved registration: a small card with an amber stripe on the left.
+   Flexbox puts the details on the left and the Delete button on the right. */
+.registration-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--amber);
+  border-radius: 10px;
+}
+
+/* The text part of the card takes up all the leftover space.
+   min-width: 0 lets long emails wrap instead of pushing the button off the card. */
+.registration-info {
+  flex: 1;
+  min-width: 0;
+}
+
+/* The person's name, bold and on its own line */
+.registration-name {
+  margin: 0;
+  font-weight: 700;
+}
+
+/* The email, on its own line in the dimmer color; long emails wrap instead of overflowing */
+.registration-email {
+  margin: 2px 0 0;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+/* The date and guest count line, in a smaller size */
+.registration-meta {
+  margin: 6px 0 0;
+  font-size: 0.9rem;
+}
+
+/* The Delete button: a small pink outline button. "flex: none" stops it from
+   stretching like the big Register/Reset buttons do. */
+.btn-delete {
+  flex: none;
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  background: transparent;
+  color: var(--pink);
+  border: 2px solid var(--pink);
+}
+
+/* Fill the Delete button with pink on hover so it's clear it's about to act */
+.btn-delete:hover {
+  background: var(--pink);
+  color: var(--bg);
+}
+
+/* The "No registrations yet" message: dimmer, italic, inside a dashed box */
+.empty-message {
+  margin: 0;
+  padding: 20px;
+  text-align: center;
+  font-style: italic;
+  color: var(--muted);
+  border: 1px dashed var(--border);
+  border-radius: 10px;
+}
+
+/* Small screens: stack the Delete button under the details instead of beside them */
+@media (max-width: 480px) {
+  .registration-item {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+/* ---------- Editing, search, export, clear all, and timestamps ---------- */
+
+/* Hides something visually but keeps it readable by screen readers
+   (used for the search box's label, since the placeholder already shows sighted users what it's for) */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Any disabled button (e.g. Export when there's nothing to export) looks faded and can't be clicked */
+button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Turn off the hover effects on disabled buttons so they don't look clickable */
+button:disabled:hover {
+  filter: none;
+  background: transparent;
+}
+button:disabled:active {
+  transform: none;
+}
+
+/* The "Editing registration for …" banner at the top of the form: an amber-tinted strip.
+   Flexbox puts the message on the left and the Cancel link on the right. */
+.edit-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding: 10px 14px;
+  background: rgba(252, 186, 40, 0.12);
+  border: 1px solid var(--amber);
+  border-radius: 8px;
+}
+
+/* .hidden is defined earlier, but .edit-banner's "display: flex" comes later in this file and
+   would win, so this more specific rule makes sure the banner really hides */
+.edit-banner.hidden {
+  display: none;
+}
+
+/* A button that looks like an underlined text link (the banner's Cancel) */
+.btn-link {
+  flex: none;
+  padding: 4px 6px;
+  background: none;
+  border: none;
+  color: var(--amber);
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+/* The toolbar above the list: search box, then the buttons, side by side with a gap */
+.toolbar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+/* The search box fills whatever space the buttons leave. It reuses the shared input look;
+   padding is a bit smaller so it lines up with the small buttons beside it. */
+.search-input {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 14px;
+}
+
+/* Hold the Export and Clear all buttons together in a row */
+.toolbar-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+/* Shared size for the small buttons (Export, Clear all, Edit). "flex: none" stops them
+   from stretching like the big Register/Reset buttons, and nowrap keeps their text on one line. */
+.btn-small {
+  flex: none;
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  background: transparent;
+}
+
+/* Amber outline style (Export, Edit) that fills with amber on hover */
+.btn-outline-amber {
+  color: var(--amber);
+  border: 2px solid var(--amber);
+}
+.btn-outline-amber:hover {
+  background: var(--amber);
+  color: var(--bg);
+}
+
+/* Pink outline style (Clear all) that fills with pink on hover */
+.btn-outline-pink {
+  color: var(--pink);
+  border: 2px solid var(--pink);
+}
+.btn-outline-pink:hover {
+  background: var(--pink);
+  color: var(--bg);
+}
+
+/* Disabled outline buttons keep their own text color on hover instead of the filled look */
+.btn-outline-amber:disabled:hover { color: var(--amber); }
+.btn-outline-pink:disabled:hover { color: var(--pink); }
+
+/* The Edit and Delete buttons on each entry, side by side */
+.registration-actions {
+  display: flex;
+  gap: 8px;
+  flex: none;
+}
+
+/* The entry currently loaded in the form for editing gets an amber outline and tint */
+.registration-item.editing {
+  border-color: var(--amber);
+  background: rgba(252, 186, 40, 0.08);
+}
+
+/* "Registered 2 hours ago" line: small and dim so it doesn't compete with the main details */
+.registration-time {
+  margin: 4px 0 0;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+/* The confirmation pop-up box. <dialog> has plain browser styling by default, so we restyle it
+   to match the page. "margin: auto" (the browser default) keeps it centered. */
+.modal {
+  width: min(420px, calc(100% - 32px));
+  padding: 24px;
+  background: var(--panel);
+  color: var(--text);
+  border: 2px solid var(--pink);
+  border-radius: 14px;
+}
+
+/* When the pop-up opens, it fades in and grows slightly from 95% size */
+.modal[open] {
+  animation: modalIn 0.2s ease-out;
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* The dark see-through layer the browser puts behind an open pop-up */
+.modal::backdrop {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+/* Pop-up heading in pink, since this is a warning */
+.modal h2 {
+  margin: 0 0 8px;
+  font-size: 1.3rem;
+  color: var(--pink);
+}
+
+/* Pop-up message text */
+.modal p {
+  margin: 0 0 20px;
+}
+
+/* Cancel and Delete all buttons, side by side */
+.modal-actions {
+  display: flex;
+  gap: 12px;
+}
+
+/* Solid pink button for the dangerous "Delete all" action */
+.btn-danger {
+  background: var(--pink);
+  color: var(--bg);
+  border: 2px solid var(--pink);
+}
+.btn-danger:hover {
+  filter: brightness(1.08);
+}
+
+/* Visible outline for keyboard users tabbing to the new buttons (pink for dangerous ones) */
+.btn-danger:focus-visible,
+.btn-outline-pink:focus-visible,
+.btn-delete:focus-visible {
+  outline-color: var(--pink);
+}
+
+/* Small screens: stack the toolbar, and let the small buttons share each row evenly */
+@media (max-width: 480px) {
+  .toolbar {
+    flex-direction: column;
+  }
+  .toolbar-buttons .btn-small,
+  .registration-actions .btn-small,
+  .registration-actions .btn-delete {
+    flex: 1;
+  }
+  .modal-actions {
+    flex-direction: column-reverse;
+  }
+}

@@ -19,6 +19,13 @@
          so our JavaScript can show its own messages instead. -->
     <form id="registration-form" novalidate>
 
+      <!-- Editing banner: hidden normally. When you click Edit on a saved entry, JavaScript shows it
+           with that person's name, so it's clear you're changing an existing entry, not adding a new one. -->
+      <div class="edit-banner hidden" id="edit-banner" role="status">
+        <span>Editing registration for <strong id="edit-name"></strong></span>
+        <button type="button" class="btn-link" id="cancel-edit">Cancel</button>
+      </div>
+
       <!-- Full name field. aria-describedby links the input to its error message for screen readers. -->
       <div class="field">
         <label for="fullName">Full name</label>
@@ -53,9 +60,10 @@
         <textarea id="dietary" name="dietary" placeholder="e.g. vegetarian, nut allergy"></textarea>
       </div>
 
-      <!-- The buttons. type="reset" makes the browser clear all fields when clicked. -->
+      <!-- The buttons. type="reset" makes the browser clear all fields when clicked.
+           The submit button's text changes to "Save changes" while editing an entry. -->
       <div class="actions">
-        <button type="submit" class="btn-primary">Register</button>
+        <button type="submit" class="btn-primary" id="submit-button">Register</button>
         <button type="reset" class="btn-secondary">Reset</button>
       </div>
     </form>
@@ -63,10 +71,50 @@
     <!-- Confirmation card: hidden at first, filled in and shown by JavaScript after a valid submit.
          role="status" makes screen readers announce it when it appears. -->
     <section id="confirmation" class="confirmation hidden" role="status">
-      <h2>You're registered! 🎉</h2>
+      <!-- The heading text is set by JavaScript: one message for new entries, another for edits -->
+      <h2 id="confirmation-heading">You're registered! 🎉</h2>
       <dl class="details" id="confirmation-details"></dl>
     </section>
+
+    <!-- Saved registrations: JavaScript reads them from localStorage (the browser's
+         built-in storage) and builds one list item per entry inside the <ul>.
+         The "No registrations yet" message is shown instead when the list is empty. -->
+    <section class="registrations" aria-labelledby="registrations-heading">
+      <h2 id="registrations-heading">
+        Registrations <span class="count" id="registration-count"></span>
+      </h2>
+
+      <!-- Toolbar: a search box that filters the list as you type, plus the Export and Clear all buttons.
+           type="search" gives the box a built-in "x" to clear it in most browsers. -->
+      <div class="toolbar">
+        <label for="search" class="visually-hidden">Search registrations</label>
+        <input type="search" id="search" class="search-input" placeholder="Search by name, email, or date…" autocomplete="off">
+        <div class="toolbar-buttons">
+          <button type="button" class="btn-small btn-outline-amber" id="export-button">Export JSON</button>
+          <button type="button" class="btn-small btn-outline-pink" id="clear-all-button">Clear all</button>
+        </div>
+      </div>
+
+      <ul class="registration-list" id="registration-list"></ul>
+      <p class="empty-message hidden" id="empty-message">No registrations yet</p>
+      <!-- Shown instead of the list when the search matches nothing -->
+      <p class="empty-message hidden" id="no-matches"></p>
+    </section>
   </main>
+
+  <!-- Confirmation pop-up, shared by "Delete" (one entry) and "Clear all" (every entry).
+       JavaScript fills in the title, message, and red button's label before opening it.
+       <dialog> is a built-in HTML pop-up box: when JavaScript opens it with showModal(), it dims
+       the page behind it, keeps keyboard focus inside it, and closes when you press Esc.
+       "autofocus" puts focus on Cancel, the safe choice. -->
+  <dialog class="modal" id="confirm-dialog" aria-labelledby="confirm-dialog-title" aria-describedby="confirm-dialog-text">
+    <h2 id="confirm-dialog-title"></h2>
+    <p id="confirm-dialog-text"></p>
+    <div class="modal-actions">
+      <button type="button" class="btn-secondary" id="confirm-cancel" autofocus>Cancel</button>
+      <button type="button" class="btn-danger" id="confirm-ok"></button>
+    </div>
+  </dialog>
 
   <!-- Load the page's JavaScript from script.js. It sits at the end of <body>
        so the form already exists on the page when the script runs. -->
